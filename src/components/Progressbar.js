@@ -1,4 +1,5 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Animated } from 'react-native';
+import { useEffect, useRef } from 'react';
 
 export const ProgressBar = ({ percentage }) => {
   return (
@@ -9,14 +10,39 @@ export const ProgressBar = ({ percentage }) => {
 };
 
 const Filler = ({ percentage }) => {
-  return <View style={[styles.filler, { width: `${percentage}%` }]} />;
+  const animatedWidth = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    // Animate the width based on the percentage value
+    Animated.timing(animatedWidth, {
+      toValue: percentage,
+      duration: 500,
+      useNativeDriver: false
+    }).start();
+  }, [percentage]);
+
+  const animWidth = animatedWidth.interpolate({
+    inputRange: [0, 100],
+    outputRange: ['0%', '100%']
+  });
+
+  return (
+    <Animated.View
+      style={[
+        styles.filler,
+        {
+          width: animWidth
+        }
+      ]}
+    />
+  );
 };
 
 const styles = StyleSheet.create({
   progress: {
     position: 'relative',
     marginTop: 8,
-    height: 14,
+    height: 10,
     width: '100%',
     borderRadius: 50,
     borderWidth: 1,
@@ -24,26 +50,8 @@ const styles = StyleSheet.create({
   },
   filler: {
     position: 'absolute',
-    backgroundColor: '#1DA598',
+    backgroundColor: 'rgb(33,13,8)',
     borderRadius: 50,
-    width: 100,
-    height: '100%',
-    transitionProperty: 'width',
-    transitionDuration: '.2s'
+    height: '100%'
   }
 });
-
-// .progress-bar {
-//   position: relative;
-//   height: 20px;
-//   width: 350px;
-//   border-radius: 50px;
-//   border: 1px solid #333;
-// }
-//
-// .filler {
-//   background: #1DA598;
-//   height: 100%;
-//   border-radius: inherit;
-//   transition: width .2s ease-in;
-// }

@@ -8,6 +8,6 @@ export default ({ children }) => (
       title={() => <HeaderComponent flowName="Summer" subtitle="Welcome to my app!" />}
     />
     <Divider />
-    <Layout style={{ flex: 1, justifyContent: 'center', padding: 12 }}>{children}</Layout>
+    <Layout style={{ flex: 1, justifyContent: 'flex-start', padding: 12 }}>{children}</Layout>
   </View>
 );

@@ -21,14 +21,14 @@ export const useTasks = create((set) => ({
       title: 'Біг 5 кілометрів',
       description: 'Кожну середу, четверг',
       awardCount: 2,
-      done: true
+      done: false
     }
   ],
   addTask: (task) =>
     set((state) => ({
       tasks: [...state.tasks, task]
     })),
-  removeTaks: (taskId) =>
+  removeTask: (taskId) =>
     set((state) => ({
       tasks: [...state.tasks.filter((task) => task.id === taskId)]
     })),

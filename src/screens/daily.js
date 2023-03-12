@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text } from '@ui-kitten/components';
 import { TaskList } from '../components/Task/TaskList';
-import { useTasks } from '../store/store';
+import { useTasks } from '../store/useTasks';
 import BaseLayout from '../components/BaseLayout';
+import { View } from 'react-native';
 
 const DailyScreen = () => {
   const completedTasks = useTasks((state) => state.tasks.filter((task) => task.done));
@@ -10,21 +11,25 @@ const DailyScreen = () => {
 
   return (
     <BaseLayout>
-      <Text category="h3" style={{ textAlign: 'left' }}>
-        Need to do:
-      </Text>
+      {needTasks.length > 0 && (
+        <View>
+          <Text category="h4" style={{ textAlign: 'left' }}>
+            Need to do:
+          </Text>
 
-      <TaskList data={needTasks} />
+          <TaskList data={needTasks} />
+        </View>
+      )}
 
-      <Text category="h3" style={{ textAlign: 'left', marginTop: 20 }}>
-        Done for today:
-      </Text>
+      {completedTasks.length > 0 && (
+        <View>
+          <Text category="h4" style={{ textAlign: 'left', marginTop: 20 }}>
+            Done for today:
+          </Text>
 
-      <TaskList data={completedTasks} />
-
-      <Text appearance="hint" style={{ textAlign: 'center', marginTop: 20 }}>
-        Powered by UnReal GO
-      </Text>
+          <TaskList data={completedTasks} />
+        </View>
+      )}
     </BaseLayout>
   );
 };
