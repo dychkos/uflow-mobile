@@ -14,7 +14,7 @@ const DailyScreen = () => {
       {needTasks.length > 0 && (
         <View>
           <Text category="h4" style={{ textAlign: 'left' }}>
-            Need to do:
+            Необхідно зробити:
           </Text>
 
           <TaskList data={needTasks} />
@@ -24,7 +24,7 @@ const DailyScreen = () => {
       {completedTasks.length > 0 && (
         <View>
           <Text category="h4" style={{ textAlign: 'left', marginTop: 20 }}>
-            Done for today:
+            Зроблено:
           </Text>
 
           <TaskList data={completedTasks} />
@@ -32,10 +32,6 @@ const DailyScreen = () => {
       )}
     </BaseLayout>
   );
-};
-
-DailyScreen.navigationOptions = {
-  headerShown: false
 };
 
 export default DailyScreen;

@@ -7,8 +7,12 @@ import { useUser } from '../store/useUser';
 import { useTasks } from '../store/useTasks';
 
 export const HeaderComponent = ({ flowName }) => {
-  const doneTasks = useUser((state) => state.doneTasks);
   const tasksCount = useTasks((state) => state.tasks.length);
+  const [globalCoins, earnedCoins, doneTasks] = useUser((state) => [
+    state.globalCoins,
+    state.earnedCoins,
+    state.doneTasks
+  ]);
 
   const calcDonePercentage = () => (doneTasks / tasksCount) * 100;
 
@@ -23,10 +27,10 @@ export const HeaderComponent = ({ flowName }) => {
 
       <View style={[styles.box, styles.statistic]}>
         <View style={{ alignSelf: 'center' }}>
-          <Text category={'h6'}>{6000 + doneTasks}</Text>
-          {doneTasks > 0 && (
+          <Text category={'h6'}>{globalCoins}</Text>
+          {earnedCoins > 0 && (
             <Text style={[globalStyles.colorPrimary, { textAlign: 'right' }]} category={'label'}>
-              + {doneTasks}
+              + {earnedCoins}
             </Text>
           )}
         </View>

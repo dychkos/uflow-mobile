@@ -17,7 +17,7 @@
     "@react-navigation/bottom-tabs": "^6.5.5",
     "@ui-kitten/components": "^5.1.2",
     "@ui-kitten/eva-icons": "^5.1.2",
-    "expo": "^48.0.6",
+    "expo": "^48.0.7",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",

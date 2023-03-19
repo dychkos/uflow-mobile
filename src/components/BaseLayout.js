@@ -1,6 +1,8 @@
 import { Divider, Layout, TopNavigation } from '@ui-kitten/components';
 import { HeaderComponent } from './HeaderComponent';
 import { View } from 'react-native';
+import { AddButton } from './AddButton';
+import { AddTaskPopup } from './Popups';
 
 export default ({ children }) => (
   <View style={{ flex: 1 }}>
@@ -9,5 +11,7 @@ export default ({ children }) => (
     />
     <Divider />
     <Layout style={{ flex: 1, justifyContent: 'flex-start', padding: 12 }}>{children}</Layout>
+    <AddButton />
+    <AddTaskPopup />
   </View>
 );
