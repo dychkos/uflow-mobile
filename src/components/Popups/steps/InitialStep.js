@@ -10,9 +10,6 @@ export const InitialStep = ({ onNextClick }) => {
         <Input placeholder="How much?" style={styles.inputItem} />
         <Input placeholder="What thing?" style={styles.inputItem} />
       </View>
-      <Button style={styles.button} onPress={onNextClick}>
-        Next
-      </Button>
     </>
   );
 };

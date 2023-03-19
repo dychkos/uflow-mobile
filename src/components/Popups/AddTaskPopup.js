@@ -25,7 +25,7 @@ const steps = {
 
 export const AddTaskPopup = () => {
   const [visible, toggleVisible] = useApp((state) => [state.addingTask, state.toggleAddingTask]);
-  const [step, setStep] = React.useState(steps.INITIAL.index);
+  const [step, setStep] = React.useState(steps.AWARD.index);
 
   const incrementStep = () => {
     if (step === steps.AWARD.index) return;
@@ -53,12 +53,13 @@ export const AddTaskPopup = () => {
       <ModalStepLayout
         title={getCurrentStep().title}
         onClose={toggleVisible}
+        onNextClick={incrementStep}
         onBackClick={allowedBackButton() ? decrementStep : false}>
         {Object.values(steps)
           .map((s, i) => {
             if (step === i) {
               const Component = s.component;
-              return <Component onNextClick={incrementStep} key={s.index} />;
+              return <Component key={s.index} />;
             }
             return null;
           })

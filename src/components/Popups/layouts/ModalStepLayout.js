@@ -1,9 +1,9 @@
 import { StyleSheet, View } from 'react-native';
 import { BackIcon, CloseIcon } from '../../icons';
-import { Text } from '@ui-kitten/components';
+import { Button, Text } from '@ui-kitten/components';
 import React from 'react';
 
-export const ModalStepLayout = ({ title, onClose, onBackClick, children }) => {
+export const ModalStepLayout = ({ title, onClose, onBackClick, onNextClick, children }) => {
   return (
     <View style={styles.modalWrapper}>
       <View style={styles.modal}>
@@ -21,6 +21,9 @@ export const ModalStepLayout = ({ title, onClose, onBackClick, children }) => {
           {title}
         </Text>
         <View style={styles.content}>{children}</View>
+        <Button style={styles.button} onPress={onNextClick}>
+          Next
+        </Button>
       </View>
     </View>
   );
@@ -28,11 +31,12 @@ export const ModalStepLayout = ({ title, onClose, onBackClick, children }) => {
 
 const styles = StyleSheet.create({
   modal: {
-    minHeight: 192,
+    height: 340,
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 16,
-    minWidth: 300
+    width: 350,
+    display: 'flex'
   },
   modalWrapper: {
     flex: 1,
@@ -50,5 +54,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+  button: {
+    marginTop: 'auto'
   }
 });
