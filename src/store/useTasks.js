@@ -1,32 +1,58 @@
 import { create } from 'zustand';
 
-export const useTasks = create((set) => ({
-  tasks: [
-    {
-      id: '1',
-      title: 'Читати 5 сторінок',
-      description: 'Кожен день',
+const getState = () => {
+  return {
+    tasks: [
+      {
+        id: '1',
+        action: 'Read',
+        how_many: 120,
+        unit: 'pages',
+        days: ['Mn'],
+        awardCount: 1,
+        done: false
+      },
+      {
+        id: '2',
+        action: 'Just dreaming',
+        how_many: 1,
+        unit: 'time',
+        days: ['Sa', 'Su'],
+        awardCount: 1,
+        done: false
+      },
+      {
+        id: '3',
+        action: 'Run',
+        how_many: 5,
+        unit: 'km',
+        days: ['Fr'],
+        awardCount: 2,
+        done: false
+      }
+    ],
+    current: {
+      action: '',
+      how_many: '',
+      unit: '',
+      days: [],
       awardCount: 1,
-      done: false
-    },
-    {
-      id: '2',
-      title: 'Пасти 1 раз коров',
-      description: 'Раз на місяць',
-      awardCount: 1,
-      done: false
-    },
-    {
-      id: '3',
-      title: 'Біг 5 кілометрів',
-      description: 'Кожну середу, четверг',
-      awardCount: 2,
       done: false
     }
-  ],
-  addTask: (task) =>
+  };
+};
+
+export const useTasks = create((set) => ({
+  ...getState(),
+
+  setCurrent: (newTask) =>
+    set(() => ({
+      current: newTask
+    })),
+  addTask: () =>
     set((state) => ({
-      tasks: [...state.tasks, task]
+      tasks: [...state.tasks, state.current],
+      current: getState().current
     })),
   removeTask: (taskId) =>
     set((state) => ({

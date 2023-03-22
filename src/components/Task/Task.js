@@ -25,10 +25,12 @@ export const Task = ({ item }) => {
     }
   };
 
+  const title = `${item.action} ${item.how_many} ${item.unit}`;
+
   return (
     <ListItem
-      title={item.title}
-      description={item.description}
+      title={title}
+      description={item.days.join(', ')}
       accessoryRight={() => <CompleteButton done={item.done} onComplete={onComplete} />}
       accessoryLeft={() => <Award awardCount={item.awardCount} />}
     />

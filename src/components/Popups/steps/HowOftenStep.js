@@ -2,19 +2,19 @@ import React from 'react';
 import { Button, ButtonGroup } from '@ui-kitten/components';
 import { View } from 'react-native';
 import { StyleSheet } from 'react-native';
+import { useTaskSteps } from '../../../hooks/useTaskSteps';
 
 export const HowOftenStep = ({ onNextClick }) => {
   const days = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 
-  const [selected, setSelected] = React.useState([]);
+  const { task, setTask, handleSubmit } = useTaskSteps(onNextClick);
 
   const onSelect = (day) => {
-    if (!selected.includes(day)) {
-      setSelected([...selected, day]);
+    if (!task.days.includes(day)) {
+      setTask({ ...task, days: [...task.days, day] });
     } else {
-      setSelected(selected.filter((item) => item !== day));
+      setTask({ ...task, days: task.days.filter((item) => item !== day) });
     }
-    console.log(day);
   };
 
   return (
@@ -24,13 +24,16 @@ export const HowOftenStep = ({ onNextClick }) => {
           {days.map((day) => (
             <Button
               key={day}
-              style={selected.includes(day) && styles.buttonCheck}
+              style={task.days.includes(day) && styles.buttonCheck}
               onPress={() => onSelect(day)}>
               {day}
             </Button>
           ))}
         </ButtonGroup>
       </View>
+      <Button style={styles.button} onPress={handleSubmit}>
+        Next
+      </Button>
     </>
   );
 };
@@ -45,6 +48,6 @@ const styles = StyleSheet.create({
     marginTop: 16
   },
   buttonCheck: {
-    backgroundColor: '#424f69'
+    backgroundColor: '#4343ff'
   }
 });

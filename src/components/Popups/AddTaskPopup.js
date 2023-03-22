@@ -1,9 +1,10 @@
 import React from 'react';
-import { Modal, Text } from '@ui-kitten/components';
-import { StyleSheet, View } from 'react-native';
+import { Modal } from '@ui-kitten/components';
+import { StyleSheet } from 'react-native';
 import { useApp } from '../../store/useApp';
 import { InitialStep, HowOftenStep, ChooseAwardStep } from './steps';
 import { ModalStepLayout } from './layouts';
+import { useTasks } from '../../store/useTasks';
 
 const steps = {
   INITIAL: {
@@ -25,7 +26,9 @@ const steps = {
 
 export const AddTaskPopup = () => {
   const [visible, toggleVisible] = useApp((state) => [state.addingTask, state.toggleAddingTask]);
-  const [step, setStep] = React.useState(steps.AWARD.index);
+  const [step, setStep] = React.useState(steps.INITIAL.index);
+
+  const [addTask] = useTasks((state) => [state.addTask]);
 
   const incrementStep = () => {
     if (step === steps.AWARD.index) return;
@@ -48,18 +51,31 @@ export const AddTaskPopup = () => {
     return currentStep;
   };
 
+  const handleSubmit = () => {
+    addTask();
+    setStep(steps.INITIAL.index);
+    toggleVisible();
+  };
+
+  const onNextClick = () => {
+    if (step === steps.AWARD.index) {
+      handleSubmit();
+    } else {
+      incrementStep();
+    }
+  };
+
   return (
     <Modal visible={visible} backdropStyle={styles.backdrop}>
       <ModalStepLayout
         title={getCurrentStep().title}
         onClose={toggleVisible}
-        onNextClick={incrementStep}
         onBackClick={allowedBackButton() ? decrementStep : false}>
         {Object.values(steps)
           .map((s, i) => {
             if (step === i) {
               const Component = s.component;
-              return <Component key={s.index} />;
+              return <Component key={s.index} onNextClick={onNextClick} />;
             }
             return null;
           })
@@ -72,5 +88,8 @@ export const AddTaskPopup = () => {
 const styles = StyleSheet.create({
   backdrop: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)'
+  },
+  button: {
+    marginTop: 'auto'
   }
 });

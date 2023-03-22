@@ -1,24 +1,26 @@
-import { Text } from '@ui-kitten/components';
+import { Button, Text } from '@ui-kitten/components';
 import React from 'react';
 import { View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { CoinIcon, DecremIcon, IncremIcon } from '../../icons';
+import { useTasks } from '../../../store/useTasks';
+import { useTaskSteps } from '../../../hooks/useTaskSteps';
 
 export const ChooseAwardStep = ({ onNextClick }) => {
-  const [award, setAward] = React.useState(1);
+  const { task, setTask, handleSubmit } = useTaskSteps(onNextClick);
 
-  const allowDecrement = () => award > 1;
-  const allowIncrement = () => award < 3;
+  const allowDecrement = () => task.awardCount > 1;
+  const allowIncrement = () => task.awardCount < 3;
 
   const decrement = () => {
     if (allowDecrement()) {
-      setAward(award - 1);
+      setTask({ ...task, awardCount: task.awardCount - 1 });
     }
   };
 
   const increment = () => {
     if (allowIncrement()) {
-      setAward(award + 1);
+      setTask({ ...task, awardCount: task.awardCount + 1 });
     }
   };
 
@@ -32,7 +34,7 @@ export const ChooseAwardStep = ({ onNextClick }) => {
             onPress={decrement}
             style={styles.actionIcon}
           />
-          <Text category="h1"> {award} </Text>
+          <Text category="h1"> {task.awardCount} </Text>
           <IncremIcon
             fill={allowIncrement() ? '#000' : '#ababa0'}
             onPress={increment}
@@ -40,6 +42,9 @@ export const ChooseAwardStep = ({ onNextClick }) => {
           />
         </View>
       </View>
+      <Button style={styles.button} onPress={handleSubmit}>
+        Create task
+      </Button>
     </>
   );
 };
