@@ -43,7 +43,7 @@ export const ChooseAwardStep = ({ onNextClick }) => {
         </View>
       </View>
       <Button style={styles.button} onPress={handleSubmit}>
-        Create task
+        Submit
       </Button>
     </>
   );

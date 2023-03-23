@@ -1,7 +1,14 @@
 import { Layout, Text } from '@ui-kitten/components';
+import BaseLayout from '../components/BaseLayout';
+import { TaskList } from '../components/Task/TaskList';
+import { useTasks } from '../store/useTasks';
 
-export default () => (
-  <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text category="h1">Flow Screen</Text>
-  </Layout>
-);
+export default () => {
+  const tasks = useTasks((state) => state.tasks);
+  return (
+    <BaseLayout mode={'flow'}>
+      <Text>Flow</Text>
+      <TaskList data={tasks} isFlow={true} />
+    </BaseLayout>
+  );
+};

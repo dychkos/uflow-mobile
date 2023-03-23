@@ -24,11 +24,11 @@ const steps = {
   }
 };
 
-export const AddTaskPopup = () => {
+export const AddTaskPopup = ({ editMode }) => {
   const [visible, toggleVisible] = useApp((state) => [state.addingTask, state.toggleAddingTask]);
   const [step, setStep] = React.useState(steps.INITIAL.index);
 
-  const [addTask] = useTasks((state) => [state.addTask]);
+  const [addTask, updateTask] = useTasks((state) => [state.addTask, state.updateTask]);
 
   const incrementStep = () => {
     if (step === steps.AWARD.index) return;
@@ -52,7 +52,11 @@ export const AddTaskPopup = () => {
   };
 
   const handleSubmit = () => {
-    addTask();
+    if (editMode) {
+      updateTask();
+    } else {
+      addTask();
+    }
     setStep(steps.INITIAL.index);
     toggleVisible();
   };

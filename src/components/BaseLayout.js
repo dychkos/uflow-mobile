@@ -4,14 +4,14 @@ import { View } from 'react-native';
 import { AddButton } from './AddButton';
 import { AddTaskPopup } from './Popups';
 
-export default ({ children }) => (
+export default ({ children, mode }) => (
   <View style={{ flex: 1 }}>
     <TopNavigation
-      title={() => <HeaderComponent flowName="Summer" subtitle="Welcome to my app!" />}
+      title={() => <HeaderComponent flowName="Summer" hideProgress={mode === 'flow'} />}
     />
     <Divider />
     <Layout style={{ flex: 1, justifyContent: 'flex-start', padding: 12 }}>{children}</Layout>
     <AddButton />
-    <AddTaskPopup />
+    <AddTaskPopup editMode={mode === 'flow'} />
   </View>
 );

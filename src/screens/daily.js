@@ -10,7 +10,7 @@ const DailyScreen = () => {
   const needTasks = useTasks((state) => state.tasks.filter((task) => !task.done));
 
   return (
-    <BaseLayout>
+    <BaseLayout mode="dayli">
       {needTasks.length > 0 && (
         <View>
           <Text category="h4" style={{ textAlign: 'left' }}>

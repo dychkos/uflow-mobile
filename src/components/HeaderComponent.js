@@ -6,7 +6,7 @@ import React from 'react';
 import { useUser } from '../store/useUser';
 import { useTasks } from '../store/useTasks';
 
-export const HeaderComponent = ({ flowName }) => {
+export const HeaderComponent = ({ flowName, hideProgress }) => {
   const tasksCount = useTasks((state) => state.tasks.length);
   const [globalCoins, earnedCoins, doneTasks] = useUser((state) => [
     state.globalCoins,
@@ -22,7 +22,7 @@ export const HeaderComponent = ({ flowName }) => {
 
       <View style={[styles.box, styles.main]}>
         <Text category="h4">{flowName}</Text>
-        <ProgressBar percentage={calcDonePercentage()} />
+        {!hideProgress && <ProgressBar percentage={calcDonePercentage()} />}
       </View>
 
       <View style={[styles.box, styles.statistic]}>
@@ -51,7 +51,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    height: 80
   },
   box: {
     flex: 1

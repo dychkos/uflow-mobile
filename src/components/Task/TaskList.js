@@ -3,12 +3,21 @@ import { StyleSheet } from 'react-native';
 import { List } from '@ui-kitten/components';
 import { View } from 'react-native';
 import { Task } from './Task';
+import { FlowTask } from './FlowTask';
 
-export const TaskList = ({ data }) => (
-  <View>
-    <List style={styles.container} data={data} renderItem={(item) => <Task item={item} />} />
-  </View>
-);
+export const TaskList = ({ data, isFlow }) => {
+  const TaskComponent = ({ item }) => (isFlow ? <FlowTask item={item} /> : <Task item={item} />);
+
+  return (
+    <View>
+      <List
+        style={styles.container}
+        data={data}
+        renderItem={(item) => <TaskComponent item={item} />}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
