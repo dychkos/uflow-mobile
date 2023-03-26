@@ -6,6 +6,7 @@ const { Navigator, Screen } = createBottomTabNavigator();
 import FlowScreen from '../screens/flow';
 import ProfileScreen from '../screens/profile';
 import DailyScreen from '../screens/daily';
+import LoginNavigator from './LoginNavigator';
 
 const BottomTab = ({ navigation, state }) => (
   <BottomNavigation
@@ -25,8 +26,6 @@ const TabNavigator = () => (
   </Navigator>
 );
 
-export const AppNavigator = () => (
-  <NavigationContainer>
-    <TabNavigator />
-  </NavigationContainer>
+export const AppNavigator = ({ isAuth }) => (
+  <NavigationContainer>{isAuth ? <TabNavigator /> : <LoginNavigator />}</NavigationContainer>
 );
