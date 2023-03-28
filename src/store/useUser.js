@@ -13,5 +13,10 @@ export const useUser = create((set) => ({
     set((state) => ({
       earnedCoins: increment ? state.earnedCoins + coins : state.earnedCoins - coins,
       globalCoins: increment ? state.globalCoins + coins : state.globalCoins - coins
+    })),
+
+  setAuth: (isAuth) =>
+    set(() => ({
+      isAuth
     }))
 }));
