@@ -5,6 +5,16 @@ import { AuthApi } from '../api/AuthApi';
 export class AuthService {
   static async login({ email, password }) {
     const data = await AuthApi.login({ email, password });
+    console.log('data', data);
+
+    if (data) {
+      await AuthService.makeAuth(data.access_token);
+    }
+  }
+
+  static async register({ username, email, password }) {
+    const data = await AuthApi.register({ username, email, password });
+    console.log('data', data);
 
     if (data) {
       await AuthService.makeAuth(data.access_token);

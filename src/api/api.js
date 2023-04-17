@@ -17,14 +17,19 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (error.response.status === 401) {
-      await AsyncStorage.removeItem('@logged_in');
-      await AsyncStorage.removeItem('@jwt_token');
+    if (error.response) {
+      if (error.response.status === 401) {
+        await AsyncStorage.removeItem('@logged_in');
+        await AsyncStorage.removeItem('@jwt_token');
 
-      useUser.getState().setAuth(false);
-      // setAuth(false);
+        useUser.getState().setAuth(false);
+      }
+
+      if (error.response.status === 403) {
+        return Promise.reject(new Error('Credentials are not correct'));
+      }
     }
-    return Promise.reject(error);
+    return Promise.reject('Something went wrong');
   }
 );
 

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Button, Input, Layout, Text } from '@ui-kitten/components';
 import { AuthService } from '../services/AuthService';
 import { LoadingIndicator } from '../components/LoadingIndicator';
 import { useUser } from '../store/useUser';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function LoginScreen({ navigation }) {
   const setAuth = useUser((state) => state.setAuth);
@@ -16,16 +15,13 @@ function LoginScreen({ navigation }) {
   const [error, setError] = useState(null);
 
   const handleLogin = async () => {
-    console.log('try to login', { email, password });
     setLoading(true);
     try {
       await AuthService.login({ email, password });
       const isAuth = await AuthService.isLoggedIn();
-      console.log('login finished with', isAuth);
       setAuth(isAuth);
     } catch (e) {
-      setError('Loading error');
-      console.log(e);
+      setError(e.message);
     } finally {
       setLoading(false);
     }
@@ -62,7 +58,7 @@ function LoginScreen({ navigation }) {
         style={styles.button}>
         Create an account
       </Button>
-      {error ? <Text status="danger">Error: {error}</Text> : ''}
+      {error ? <Text status="danger">{error}</Text> : ''}
     </Layout>
   );
 }

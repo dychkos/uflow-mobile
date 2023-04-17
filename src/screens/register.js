@@ -2,16 +2,30 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button, Input, Layout, Text } from '@ui-kitten/components';
 import { LoadingIndicator } from '../components/LoadingIndicator';
+import { AuthService } from '../services/AuthService';
+import { useUser } from '../store/useUser';
 
 function RegistrationScreen({ navigation }) {
+  const setAuth = useUser((state) => state.setAuth);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [username, setUsername] = useState('');
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleRegistration = () => {
-    // handle registration logic here
+  const handleRegistration = async () => {
+    setLoading(true);
+    try {
+      await AuthService.register({ username, email, password });
+      const isAuth = await AuthService.isLoggedIn();
+      setAuth(isAuth);
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -19,12 +33,22 @@ function RegistrationScreen({ navigation }) {
       <Text style={styles.title} category="h2">
         Create an account
       </Text>
+
+      <Input
+        placeholder="Username"
+        value={username}
+        style={styles.input}
+        secureTextEntry
+        onChangeText={(text) => setUsername(text)}
+      />
+
       <Input
         placeholder="Email"
         value={email}
         onChangeText={(text) => setEmail(text)}
         style={styles.input}
       />
+
       <Input
         placeholder="Password"
         value={password}
@@ -32,13 +56,7 @@ function RegistrationScreen({ navigation }) {
         secureTextEntry
         onChangeText={(text) => setPassword(text)}
       />
-      <Input
-        placeholder="Confirm password"
-        value={confirmPassword}
-        style={styles.input}
-        secureTextEntry
-        onChangeText={(text) => setConfirmPassword(text)}
-      />
+
       <Button
         onPress={handleRegistration}
         accessoryLeft={() => (loading ? <LoadingIndicator /> : null)}
@@ -49,6 +67,8 @@ function RegistrationScreen({ navigation }) {
       <Button onPress={() => navigation.goBack()} style={styles.button} appearance={'ghost'}>
         Back to login
       </Button>
+
+      {error ? <Text status="danger">{error}</Text> : ''}
     </Layout>
   );
 }

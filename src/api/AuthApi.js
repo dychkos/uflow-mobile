@@ -3,13 +3,16 @@ import api from './api';
 export class AuthApi {
   static async login({ email, password }) {
     const endpoint = 'auth/sign-in';
-    try {
-      const response = await api.post(endpoint, JSON.stringify({ email, password }));
-      const { data } = response;
-      return data;
-    } catch (e) {
-      return null;
-    }
+    const response = await api.post(endpoint, { email, password });
+
+    return response.data;
+  }
+
+  static async register({ username, email, password }) {
+    const endpoint = 'auth/sign-up';
+
+    const response = await api.post(endpoint, { username, email, password });
+    return response.data;
   }
 
   static async verifyAuth({ token }) {
