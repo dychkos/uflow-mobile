@@ -1,11 +1,11 @@
-import { Button, Layout, Text } from '@ui-kitten/components';
+import { Button, Divider, Layout, Text } from '@ui-kitten/components';
 import { LoadingIndicator } from '../components/LoadingIndicator';
 import React from 'react';
 import { AuthService } from '../services/AuthService';
 import { useUser } from '../store/useUser';
 
 export default () => {
-  const setAuth = useUser((state) => state.setAuth);
+  const [user, setAuth] = useUser((state) => [state.user, state.setAuth]);
 
   const handleLogout = async () => {
     await AuthService.makeLogout();
@@ -14,6 +14,8 @@ export default () => {
   return (
     <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text category="h1">Profile Screen</Text>
+      <Text category="h2">{user.username}</Text>
+      <Divider />
       <Button onPress={handleLogout}>Logout</Button>
     </Layout>
   );

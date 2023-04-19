@@ -4,9 +4,10 @@ import { Button, Input, Layout, Text } from '@ui-kitten/components';
 import { LoadingIndicator } from '../components/LoadingIndicator';
 import { AuthService } from '../services/AuthService';
 import { useUser } from '../store/useUser';
+import { UserApi } from '../api/UserApi';
 
 function RegistrationScreen({ navigation }) {
-  const setAuth = useUser((state) => state.setAuth);
+  const [setAuth, setUser] = useUser((state) => [state.setAuth, state.setUser]);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,6 +22,11 @@ function RegistrationScreen({ navigation }) {
       await AuthService.register({ username, email, password });
       const isAuth = await AuthService.isLoggedIn();
       setAuth(isAuth);
+
+      if (isAuth) {
+        const user = await UserApi.getMe();
+        setUser(user);
+      }
     } catch (e) {
       setError(e.message);
     } finally {
@@ -38,7 +44,6 @@ function RegistrationScreen({ navigation }) {
         placeholder="Username"
         value={username}
         style={styles.input}
-        secureTextEntry
         onChangeText={(text) => setUsername(text)}
       />
 

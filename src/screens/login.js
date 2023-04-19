@@ -4,9 +4,10 @@ import { Button, Input, Layout, Text } from '@ui-kitten/components';
 import { AuthService } from '../services/AuthService';
 import { LoadingIndicator } from '../components/LoadingIndicator';
 import { useUser } from '../store/useUser';
+import { UserApi } from '../api/UserApi';
 
 function LoginScreen({ navigation }) {
-  const setAuth = useUser((state) => state.setAuth);
+  const [setAuth, setUser] = useUser((state) => [state.setAuth, state.setUser]);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,6 +21,11 @@ function LoginScreen({ navigation }) {
       await AuthService.login({ email, password });
       const isAuth = await AuthService.isLoggedIn();
       setAuth(isAuth);
+
+      if (isAuth) {
+        const user = await UserApi.getMe();
+        setUser(user);
+      }
     } catch (e) {
       setError(e.message);
     } finally {

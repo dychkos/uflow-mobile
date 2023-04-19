@@ -6,6 +6,8 @@ export const useUser = create((set) => ({
   globalCoins: 45,
   earnedCoins: 0,
 
+  user: null,
+
   incrementDone: () => set((state) => ({ doneTasks: state.doneTasks + 1 })),
   decrementDone: () => set((state) => ({ doneTasks: state.doneTasks - 1 })),
 
@@ -18,5 +20,10 @@ export const useUser = create((set) => ({
   setAuth: (isAuth) =>
     set(() => ({
       isAuth
-    }))
+    })),
+
+  setUser: (user) =>
+    set({
+      user
+    })
 }));
