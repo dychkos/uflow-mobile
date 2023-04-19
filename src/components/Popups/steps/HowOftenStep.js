@@ -3,18 +3,34 @@ import { Button, ButtonGroup } from '@ui-kitten/components';
 import { View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { useTaskSteps } from '../../../hooks/useTaskSteps';
+import { Helper } from '../../../services/Helper';
 
 export const HowOftenStep = ({ onNextClick }) => {
   const days = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 
   const { task, setTask, handleSubmit } = useTaskSteps(onNextClick);
 
+  const isIncluded = (day) => {
+    day = dayToIndex(day);
+    return task.days.includes(day);
+  };
+
+  const dayToIndex = (dayText) => {
+    return days.indexOf(dayText) + 1;
+  };
+
   const onSelect = (day) => {
+    //'TH'
+    day = dayToIndex(day);
+    console.log('dayToIndex', day);
+    // 1
     if (!task.days.includes(day)) {
+      console.log('d', day);
       setTask({ ...task, days: [...task.days, day] });
     } else {
       setTask({ ...task, days: task.days.filter((item) => item !== day) });
     }
+    console.log(task);
   };
 
   return (
@@ -24,7 +40,7 @@ export const HowOftenStep = ({ onNextClick }) => {
           {days.map((day) => (
             <Button
               key={day}
-              style={task.days.includes(day) && styles.buttonCheck}
+              style={isIncluded(day) && styles.buttonCheck}
               onPress={() => onSelect(day)}>
               {day}
             </Button>

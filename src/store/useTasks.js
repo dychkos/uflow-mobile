@@ -3,41 +3,42 @@ import { devtools } from 'zustand/middleware';
 
 const getState = () => {
   return {
-    tasks: [
-      {
-        id: '1',
-        action: 'Read',
-        how_many: '120',
-        unit: 'pages',
-        days: ['Mo'],
-        awardCount: 1,
-        done: false
-      },
-      {
-        id: '2',
-        action: 'Just dreaming',
-        how_many: '1',
-        unit: 'time',
-        days: ['Sa', 'Su'],
-        awardCount: 1,
-        done: false
-      },
-      {
-        id: '3',
-        action: 'Run',
-        how_many: '5',
-        unit: 'km',
-        days: ['Fr'],
-        awardCount: 2,
-        done: false
-      }
-    ],
+    // tasks: [
+    //   {
+    //     id: '1',
+    //     action: 'Read',
+    //     how_many: '120',
+    //     unit: 'pages',
+    //     days: [1, 2],
+    //     reward: 1,
+    //     done: false
+    //   },
+    //   {
+    //     id: '2',
+    //     action: 'Just dreaming',
+    //     how_many: '1',
+    //     unit: 'time',
+    //     days: [6],
+    //     reward: 1,
+    //     done: false
+    //   },
+    //   {
+    //     id: '3',
+    //     action: 'Run',
+    //     how_many: '5',
+    //     unit: 'km',
+    //     days: [4, 5, 6],
+    //     reward: 2,
+    //     done: false
+    //   }
+    // ],
+    tasks: [],
     current: {
       action: '',
       how_many: '',
       unit: '',
       days: [],
-      awardCount: 1,
+      reward: 1,
       done: false
     }
   };
@@ -47,6 +48,7 @@ export const useTasks = create(
   devtools((set) => ({
     ...getState(),
 
+    setUpTasks: (tasks) => set(() => ({ tasks })),
     setCurrent: (newTask) =>
       set(() => ({
         current: newTask

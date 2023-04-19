@@ -10,7 +10,7 @@ export const useTaskSteps = (onSubmit) => {
     how_many: '0',
     unit: '',
     days: [],
-    awardCount: 1
+    reward: 1
   };
 
   const handleSubmit = () => {

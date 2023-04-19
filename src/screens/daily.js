@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text } from '@ui-kitten/components';
 import { TaskList } from '../components/Task/TaskList';
 import { useTasks } from '../store/useTasks';
 import BaseLayout from '../components/BaseLayout';
 import { View } from 'react-native';
+import { useAppHook } from '../hooks/useAppHook';
 
 const DailyScreen = () => {
   const completedTasks = useTasks((state) => state.tasks.filter((task) => task.done));
   const needTasks = useTasks((state) => state.tasks.filter((task) => !task.done));
+
+  const app = useAppHook();
+
+  useEffect(() => {
+    console.log('here 1111');
+    app.initDaily();
+  }, []);
 
   return (
     <BaseLayout mode="dayli">

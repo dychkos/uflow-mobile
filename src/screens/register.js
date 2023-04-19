@@ -5,9 +5,11 @@ import { LoadingIndicator } from '../components/LoadingIndicator';
 import { AuthService } from '../services/AuthService';
 import { useUser } from '../store/useUser';
 import { UserApi } from '../api/UserApi';
+import { useAppHook } from '../hooks/useAppHook';
 
 function RegistrationScreen({ navigation }) {
-  const [setAuth, setUser] = useUser((state) => [state.setAuth, state.setUser]);
+  const setAuth = useUser((state) => state.setAuth);
+  const app = useAppHook();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,12 +23,11 @@ function RegistrationScreen({ navigation }) {
     try {
       await AuthService.register({ username, email, password });
       const isAuth = await AuthService.isLoggedIn();
-      setAuth(isAuth);
 
       if (isAuth) {
-        const user = await UserApi.getMe();
-        setUser(user);
+        await app.initApp();
       }
+      setAuth(isAuth);
     } catch (e) {
       setError(e.message);
     } finally {

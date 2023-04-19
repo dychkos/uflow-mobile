@@ -45,6 +45,7 @@ export class AuthService {
   // function to set JWT token in async storage
   static async storeToken(token) {
     try {
+      console.log('saved', token);
       await AsyncStorage.setItem('@jwt_token', token);
     } catch (e) {
       console.log(e);

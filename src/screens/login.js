@@ -5,9 +5,11 @@ import { AuthService } from '../services/AuthService';
 import { LoadingIndicator } from '../components/LoadingIndicator';
 import { useUser } from '../store/useUser';
 import { UserApi } from '../api/UserApi';
+import { useAppHook } from '../hooks/useAppHook';
 
 function LoginScreen({ navigation }) {
-  const [setAuth, setUser] = useUser((state) => [state.setAuth, state.setUser]);
+  const setAuth = useUser((state) => state.setAuth);
+  const app = useAppHook();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,12 +22,10 @@ function LoginScreen({ navigation }) {
     try {
       await AuthService.login({ email, password });
       const isAuth = await AuthService.isLoggedIn();
-      setAuth(isAuth);
-
       if (isAuth) {
-        const user = await UserApi.getMe();
-        setUser(user);
+        await app.initApp();
       }
+      setAuth(isAuth);
     } catch (e) {
       setError(e.message);
     } finally {

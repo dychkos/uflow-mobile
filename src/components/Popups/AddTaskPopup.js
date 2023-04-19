@@ -40,6 +40,11 @@ export const AddTaskPopup = ({ editMode }) => {
     setStep(step - 1);
   };
 
+  const onClose = () => {
+    setStep(steps.INITIAL.index);
+    toggleVisible();
+  };
+
   const allowedBackButton = () => step !== steps.INITIAL.index;
 
   const getCurrentStep = () => {
@@ -73,7 +78,7 @@ export const AddTaskPopup = ({ editMode }) => {
     <Modal visible={visible} backdropStyle={styles.backdrop}>
       <ModalStepLayout
         title={getCurrentStep().title}
-        onClose={toggleVisible}
+        onClose={onClose}
         onBackClick={allowedBackButton() ? decrementStep : false}>
         {Object.values(steps)
           .map((s, i) => {

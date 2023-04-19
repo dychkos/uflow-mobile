@@ -9,18 +9,18 @@ import { useTaskSteps } from '../../../hooks/useTaskSteps';
 export const ChooseAwardStep = ({ onNextClick }) => {
   const { task, setTask, handleSubmit } = useTaskSteps(onNextClick);
 
-  const allowDecrement = () => task.awardCount > 1;
-  const allowIncrement = () => task.awardCount < 3;
+  const allowDecrement = () => task.reward > 1;
+  const allowIncrement = () => task.reward < 3;
 
   const decrement = () => {
     if (allowDecrement()) {
-      setTask({ ...task, awardCount: task.awardCount - 1 });
+      setTask({ ...task, reward: task.reward - 1 });
     }
   };
 
   const increment = () => {
     if (allowIncrement()) {
-      setTask({ ...task, awardCount: task.awardCount + 1 });
+      setTask({ ...task, reward: task.reward + 1 });
     }
   };
 
@@ -34,7 +34,7 @@ export const ChooseAwardStep = ({ onNextClick }) => {
             onPress={decrement}
             style={styles.actionIcon}
           />
-          <Text category="h1"> {task.awardCount} </Text>
+          <Text category="h1"> {task.reward} </Text>
           <IncremIcon
             fill={allowIncrement() ? '#000' : '#ababa0'}
             onPress={increment}

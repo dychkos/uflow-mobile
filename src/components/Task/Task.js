@@ -4,6 +4,7 @@ import { CompleteButton } from './CompleteButton';
 import { Award } from './Award';
 import { useTasks } from '../../store/useTasks';
 import { useUser } from '../../store/useUser';
+import { Helper } from '../../services/Helper';
 
 export const Task = ({ item }) => {
   const toggleComplete = useTasks((state) => state.toggleTaskStatus);
@@ -18,21 +19,22 @@ export const Task = ({ item }) => {
     toggleComplete(item.id);
     if (item.done) {
       decrementDone();
-      setEarnedCoins(item.awardCount, false);
+      setEarnedCoins(item.reward, false);
     } else {
       incrementDone();
-      setEarnedCoins(item.awardCount);
+      setEarnedCoins(item.reward);
     }
   };
 
   const title = `${item.action} ${item.how_many} ${item.unit}`;
+  const days = Helper.formatTaskDays(item.days);
 
   return (
     <ListItem
       title={title}
-      description={item.days.join(', ')}
+      description={days.join(', ')}
       accessoryRight={() => <CompleteButton done={item.done} onComplete={onComplete} />}
-      accessoryLeft={() => <Award awardCount={item.awardCount} />}
+      accessoryLeft={() => <Award reward={item.reward} />}
     />
   );
 };
