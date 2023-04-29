@@ -22,9 +22,7 @@ export const useAppHook = () => {
 
   async function initDaily() {
     if (currentFlow) {
-      const tasks = await TaskApi.getTasksByFlow({ flowId: currentFlow.id });
-      console.log('tasks', tasks);
-      setUpTasks(tasks);
+      setUpTasks(currentFlow.id);
     }
   }
 

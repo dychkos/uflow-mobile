@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { useApp } from '../../store/useApp';
 import { InitialStep, HowOftenStep, ChooseAwardStep } from './steps';
 import { ModalStepLayout } from './layouts';
-import { useTasks } from '../../store/useTasks';
+import { useTaskAction } from '../../hooks/useTaskAction';
 
 const steps = {
   INITIAL: {
@@ -28,7 +28,7 @@ export const AddTaskPopup = ({ editMode }) => {
   const [visible, toggleVisible] = useApp((state) => [state.addingTask, state.toggleAddingTask]);
   const [step, setStep] = React.useState(steps.INITIAL.index);
 
-  const [addTask, updateTask] = useTasks((state) => [state.addTask, state.updateTask]);
+  const { create, update } = useTaskAction();
 
   const incrementStep = () => {
     if (step === steps.AWARD.index) return;
@@ -56,11 +56,11 @@ export const AddTaskPopup = ({ editMode }) => {
     return currentStep;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (editMode) {
-      updateTask();
+      await update();
     } else {
-      addTask();
+      await create();
     }
     setStep(steps.INITIAL.index);
     toggleVisible();

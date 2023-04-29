@@ -6,8 +6,8 @@ import { useTaskSteps } from '../../../hooks/useTaskSteps';
 export const InitialStep = ({ onNextClick }) => {
   const { setTask, task, handleSubmit } = useTaskSteps(onNextClick);
 
-  const handleInputChange = (inputName, inputValue) => {
-    setTask({ ...task, [inputName]: inputValue });
+  const handleInputChange = (inputName, inputValue, toNumber = false) => {
+    setTask({ ...task, [inputName]: toNumber ? +inputValue.replace(/[^0-9]/g, '') : inputValue });
   };
 
   return (
@@ -22,8 +22,9 @@ export const InitialStep = ({ onNextClick }) => {
         <Input
           placeholder="How much?"
           style={styles.inputItem}
-          value={task.how_many}
-          onChangeText={(text) => handleInputChange('how_many', text)}
+          value={String(task.how_many)}
+          keyboardType="numeric"
+          onChangeText={(text) => handleInputChange('how_many', text, true)}
         />
         <Input
           placeholder="What thing?"

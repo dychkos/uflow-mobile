@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 
 export const LoadingIndicator = (props) => (
   <View style={[props.style, styles.indicator]}>
-    <Spinner size="small" status="control" />
+    <Spinner size="small" status={props.status ? props.status : 'control'} />
   </View>
 );
 

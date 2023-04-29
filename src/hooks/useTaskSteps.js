@@ -7,7 +7,7 @@ export const useTaskSteps = (onSubmit) => {
 
   const defaultTask = {
     action: '',
-    how_many: '0',
+    how_many: 0,
     unit: '',
     days: [],
     reward: 1

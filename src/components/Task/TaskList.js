@@ -11,7 +11,7 @@ export const TaskList = ({ data, isFlow }) => {
   return (
     <View>
       <List
-        style={styles.container}
+        style={[styles.container, isFlow && styles.bigContainer]}
         data={data}
         renderItem={(item) => <TaskComponent item={item} />}
       />
@@ -22,5 +22,8 @@ export const TaskList = ({ data, isFlow }) => {
 const styles = StyleSheet.create({
   container: {
     maxHeight: 300
+  },
+  bigContainer: {
+    maxHeight: '100%'
   }
 });

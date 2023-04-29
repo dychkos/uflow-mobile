@@ -6,10 +6,12 @@ import { EditIcon, TrashIcon } from '../icons';
 import { useApp } from '../../store/useApp';
 import { useTasks } from '../../store/useTasks';
 import { Helper } from '../../services/Helper';
+import { useTaskAction } from '../../hooks/useTaskAction';
 
 export const FlowTask = ({ item }) => {
-  const [visible, toggleVisible] = useApp((state) => [state.addingTask, state.toggleAddingTask]);
-  const [setTaskToEdit, removeTask] = useTasks((state) => [state.setCurrent, state.removeTask]);
+  const toggleVisible = useApp((state) => state.toggleAddingTask);
+  const setTaskToEdit = useTasks((state) => [state.setCurrent, state.removeTask]);
+  const { remove, loading } = useTaskAction();
 
   const task = item.item;
 
@@ -21,8 +23,8 @@ export const FlowTask = ({ item }) => {
     toggleVisible();
   };
 
-  const onTaskRemove = () => {
-    removeTask(task.id);
+  const onTaskRemove = async () => {
+    await remove(task);
   };
 
   return (
@@ -30,12 +32,14 @@ export const FlowTask = ({ item }) => {
       title={title}
       description={days.join(', ')}
       accessoryLeft={() => <Award reward={task.reward} />}
-      accessoryRight={() => <TaskRightAccessory onEdit={onTaskEdit} onRemove={onTaskRemove} />}
+      accessoryRight={() => (
+        <TaskRightAccessory onEdit={onTaskEdit} onRemove={onTaskRemove} disabled={loading} />
+      )}
     />
   );
 };
 
-export const TaskRightAccessory = ({ onEdit, onRemove }) => {
+export const TaskRightAccessory = ({ onEdit, onRemove, disabled }) => {
   return (
     <View style={{ display: 'flex', flexDirection: 'row' }}>
       <Button
@@ -44,6 +48,7 @@ export const TaskRightAccessory = ({ onEdit, onRemove }) => {
         appearance="ghost"
         status="danger"
         accessoryLeft={TrashIcon}
+        disabled={disabled}
       />
       <Button
         style={styles.button}
@@ -51,6 +56,7 @@ export const TaskRightAccessory = ({ onEdit, onRemove }) => {
         onPress={onEdit}
         status="danger"
         accessoryLeft={EditIcon}
+        disabled={disabled}
       />
     </View>
   );

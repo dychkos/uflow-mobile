@@ -5,9 +5,12 @@ import { StyleSheet } from 'react-native';
 import { CoinIcon, DecremIcon, IncremIcon } from '../../icons';
 import { useTasks } from '../../../store/useTasks';
 import { useTaskSteps } from '../../../hooks/useTaskSteps';
+import { useTaskAction } from '../../../hooks/useTaskAction';
+import { LoadingIndicator } from '../../LoadingIndicator';
 
 export const ChooseAwardStep = ({ onNextClick }) => {
   const { task, setTask, handleSubmit } = useTaskSteps(onNextClick);
+  const { loading, error } = useTaskAction();
 
   const allowDecrement = () => task.reward > 1;
   const allowIncrement = () => task.reward < 3;
@@ -42,7 +45,13 @@ export const ChooseAwardStep = ({ onNextClick }) => {
           />
         </View>
       </View>
-      <Button style={styles.button} onPress={handleSubmit}>
+      {error ? <Text status="danger">{error}</Text> : ''}
+
+      <Button
+        style={styles.button}
+        onPress={handleSubmit}
+        disabled={loading}
+        accessoryLeft={() => (loading ? <LoadingIndicator /> : null)}>
         Submit
       </Button>
     </>
@@ -51,7 +60,7 @@ export const ChooseAwardStep = ({ onNextClick }) => {
 
 const styles = StyleSheet.create({
   button: {
-    marginTop: 16
+    marginBottom: 'auto'
   },
   icon: {
     width: 50,
