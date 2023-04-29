@@ -4,15 +4,11 @@ import { ProgressBar } from './Progressbar';
 import { globalStyles } from '../styles';
 import React from 'react';
 import { useUser } from '../store/useUser';
-import { useTasks } from '../store/useTasks';
+import { useTasksStore } from '../store/useTasksStore';
 
 export const HeaderComponent = ({ flowName, hideProgress }) => {
-  const tasksCount = useTasks((state) => state.tasks.length);
-  const [globalCoins, earnedCoins, doneTasks] = useUser((state) => [
-    state.globalCoins,
-    state.earnedCoins,
-    state.doneTasks
-  ]);
+  const tasksCount = useTasksStore((state) => state.tasks.length);
+  const [globalCoins, earnedCoins, doneTasks] = useUser((state) => [state.globalCoins, state.earnedCoins, state.doneTasks]);
 
   const calcDonePercentage = () => (doneTasks / tasksCount) * 100;
 

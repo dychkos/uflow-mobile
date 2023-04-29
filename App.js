@@ -1,7 +1,7 @@
 import React from 'react';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
+import AppNavigator from './src/components/navigation/AppNavigator';
 import * as eva from '@eva-design/eva';
-import { AppNavigator } from './src/components/AppNavigator';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { useUser } from './src/store/useUser';
 

@@ -1,16 +1,13 @@
 import { UserApi } from '../api/UserApi';
 import { useUser } from '../store/useUser';
 import { useFlow } from '../store/useFlow';
-import { useTasks } from '../store/useTasks';
-import { TaskApi } from '../api/TaskApi';
+import { useTasksStore } from '../store/useTasksStore';
 
 export const useAppHook = () => {
   const setUser = useUser((state) => state.setUser);
-  const [currentFlow, setCurrentFlow] = useFlow((state) => [
-    state.currentFlow,
-    state.setCurrentFlow
-  ]);
-  const setUpTasks = useTasks((state) => state.setUpTasks);
+
+  const [currentFlow, setCurrentFlow] = useFlow((state) => [state.currentFlow, state.setCurrentFlow]);
+  const uploadTasks = useTasksStore((state) => state.upload);
 
   async function initApp() {
     const user = await UserApi.getMe();
@@ -22,7 +19,7 @@ export const useAppHook = () => {
 
   async function initDaily() {
     if (currentFlow) {
-      setUpTasks(currentFlow.id);
+      await uploadTasks(currentFlow.id);
     }
   }
 

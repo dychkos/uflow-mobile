@@ -1,19 +1,17 @@
-import { Spinner, Text } from '@ui-kitten/components';
+import { Text } from '@ui-kitten/components';
 import BaseLayout from '../components/BaseLayout';
-import { useTasks } from '../store/useTasks';
+import { useTasksStore } from '../store/useTasksStore';
 import { useAppHook } from '../hooks/useAppHook';
 import React, { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
 import { TaskList } from '../components/Task/TaskList';
 import { LoadingIndicator } from '../components/LoadingIndicator';
 
 export default () => {
-  const [tasks, error, loading] = useTasks((state) => [state.tasks, state.error, state.loading]);
+  const [tasks, error, loading] = useTasksStore((state) => [state.tasks, state.error, state.loading]);
   const app = useAppHook();
 
   useEffect(() => {
     app.initDaily();
-    console.log('reopen');
   }, []);
 
   return (
@@ -23,11 +21,3 @@ export default () => {
     </BaseLayout>
   );
 };
-
-const styles = StyleSheet.create({
-  loading: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    flexWrap: 'wrap'
-  }
-});

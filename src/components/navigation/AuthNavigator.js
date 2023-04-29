@@ -1,11 +1,11 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginScreen from '../screens/login';
-import RegistrationScreen from '../screens/register';
+import LoginScreen from '../../screens/login';
+import RegistrationScreen from '../../screens/register';
 
 const Stack = createStackNavigator();
 
-function LoginNavigator() {
+function AuthNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Login" component={LoginScreen} />
@@ -14,4 +14,4 @@ function LoginNavigator() {
   );
 }
 
-export default LoginNavigator;
+export default AuthNavigator;

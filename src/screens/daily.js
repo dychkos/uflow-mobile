@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { Button, Text } from '@ui-kitten/components';
 import { TaskList } from '../components/Task/TaskList';
-import { useTasks } from '../store/useTasks';
+import { useTasksStore } from '../store/useTasksStore';
 import BaseLayout from '../components/BaseLayout';
 import { View } from 'react-native';
 import { useAppHook } from '../hooks/useAppHook';
 import { LoadingIndicator } from '../components/LoadingIndicator';
 
 const DailyScreen = () => {
-  const [needTasks, completedTasks, loading, error] = useTasks((state) => [
+  const [needTasks, completedTasks, loading, error] = useTasksStore((state) => [
     state.tasks.filter((task) => !task.done),
     state.tasks.filter((task) => task.done),
     state.loading,
@@ -19,8 +19,6 @@ const DailyScreen = () => {
 
   useEffect(() => {
     app.initDaily();
-    //todo update task list when reopen
-    console.log('reopen');
   }, []);
 
   return (

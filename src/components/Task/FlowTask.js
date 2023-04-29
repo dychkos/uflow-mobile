@@ -3,15 +3,14 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Award } from './Award';
 import { EditIcon, TrashIcon } from '../icons';
-import { useApp } from '../../store/useApp';
-import { useTasks } from '../../store/useTasks';
+// import { useApp } from '../../store/useApp';
+// import { useTasks } from '../../store/useTasks';
 import { Helper } from '../../services/Helper';
-import { useTaskAction } from '../../hooks/useTaskAction';
+// import { useTaskAction } from '../../hooks/useTaskAction';
 
 export const FlowTask = ({ item }) => {
-  const toggleVisible = useApp((state) => state.toggleAddingTask);
-  const setTaskToEdit = useTasks((state) => [state.setCurrent, state.removeTask]);
-  const { remove, loading } = useTaskAction();
+  // const setTaskToEdit = useTasks((state) => [state.setCurrent, state.removeTask]);
+  // const { remove, loading } = useTaskAction();
 
   const task = item.item;
 
@@ -19,12 +18,12 @@ export const FlowTask = ({ item }) => {
   const days = Helper.formatTaskDays(task.days);
 
   const onTaskEdit = () => {
-    setTaskToEdit(task);
-    toggleVisible();
+    // setTaskToEdit(task);
+    // toggleVisible();
   };
 
   const onTaskRemove = async () => {
-    await remove(task);
+    // await remove(task);
   };
 
   return (
@@ -32,9 +31,7 @@ export const FlowTask = ({ item }) => {
       title={title}
       description={days.join(', ')}
       accessoryLeft={() => <Award reward={task.reward} />}
-      accessoryRight={() => (
-        <TaskRightAccessory onEdit={onTaskEdit} onRemove={onTaskRemove} disabled={loading} />
-      )}
+      accessoryRight={() => <TaskRightAccessory onEdit={onTaskEdit} onRemove={onTaskRemove} disabled={loading} />}
     />
   );
 };
@@ -42,22 +39,8 @@ export const FlowTask = ({ item }) => {
 export const TaskRightAccessory = ({ onEdit, onRemove, disabled }) => {
   return (
     <View style={{ display: 'flex', flexDirection: 'row' }}>
-      <Button
-        style={styles.button}
-        onPress={onRemove}
-        appearance="ghost"
-        status="danger"
-        accessoryLeft={TrashIcon}
-        disabled={disabled}
-      />
-      <Button
-        style={styles.button}
-        appearance="ghost"
-        onPress={onEdit}
-        status="danger"
-        accessoryLeft={EditIcon}
-        disabled={disabled}
-      />
+      <Button style={styles.button} onPress={onRemove} appearance="ghost" status="danger" accessoryLeft={TrashIcon} disabled={disabled} />
+      <Button style={styles.button} appearance="ghost" onPress={onEdit} status="danger" accessoryLeft={EditIcon} disabled={disabled} />
     </View>
   );
 };

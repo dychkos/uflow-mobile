@@ -2,10 +2,12 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Button, Layout, Popover, Text } from '@ui-kitten/components';
 import React from 'react';
 import { useApp } from '../store/useApp';
+import { useNavigation } from '@react-navigation/native';
 
 export const AddButton = () => {
   const [visible, setVisible] = React.useState(false);
-  const toggleTaskPopup = useApp((state) => state.toggleAddingTask);
+  // const toggleTaskPopup = useApp((state) => state.toggleAddingTask);
+  const navigation = useNavigation();
 
   const renderToggleButton = () => (
     <TouchableOpacity style={styles.addButton} onPress={() => setVisible(true)}>
@@ -17,20 +19,15 @@ export const AddButton = () => {
     setVisible(false);
   };
 
-  const hideTaskPopup = () => {
+  const moveToCreatingTask = () => {
     hide();
-    toggleTaskPopup();
+    navigation.navigate('Create Task');
   };
 
   return (
-    <Popover
-      visible={visible}
-      anchor={renderToggleButton}
-      placement="top start"
-      fullWidth={true}
-      onBackdropPress={() => setVisible(false)}>
+    <Popover visible={visible} anchor={renderToggleButton} placement="top start" fullWidth={true} onBackdropPress={() => setVisible(false)}>
       <Layout style={styles.content}>
-        <Button style={styles.button} onPress={hideTaskPopup} appearance="ghost" status="primary">
+        <Button style={styles.button} onPress={moveToCreatingTask} appearance="ghost" status="primary">
           Add task
         </Button>
         <Button style={styles.button} appearance="ghost" status="primary">
