@@ -3,21 +3,25 @@ import BaseLayout from '../components/BaseLayout';
 import { useTasksStore } from '../store/useTasksStore';
 import { useAppHook } from '../hooks/useAppHook';
 import React, { useEffect } from 'react';
-import { TaskList } from '../components/Task/TaskList';
 import { LoadingIndicator } from '../components/LoadingIndicator';
+import { TasksList } from '../components/Task/TasksList';
 
 export default () => {
   const [tasks, error, loading] = useTasksStore((state) => [state.tasks, state.error, state.loading]);
   const app = useAppHook();
 
   useEffect(() => {
-    app.initDaily();
+    app.loadTasks();
   }, []);
 
   return (
     <BaseLayout mode={'flow'}>
       {error ? <Text status="danger">{error}</Text> : ''}
-      {loading ? <LoadingIndicator status={'info'} /> : <TaskList data={tasks} isFlow={true} />}
+      {loading ? (
+        <LoadingIndicator status={'info'} />
+      ) : (
+        <TasksList tasks={tasks} refreshTasks={app.loadTasks} isFlow={true} />
+      )}
     </BaseLayout>
   );
 };

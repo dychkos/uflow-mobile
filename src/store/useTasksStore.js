@@ -2,7 +2,7 @@ import { create } from 'zustand';
 // import { devtools } from 'zustand/middleware';
 import { TaskApi } from '../api/TaskApi';
 
-export const useTasksStore = create((set) => {
+export const useTasksStore = create((set, get) => {
   return {
     //
     tasks: [],
@@ -78,8 +78,6 @@ export const useTasksStore = create((set) => {
     }
   };
 });
-
-
 
 // toggleTaskStatus: (taskId) => {
 //   set((state) => ({

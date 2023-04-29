@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import DailyScreen from '../../screens/daily';
+import FlowScreen from '../../screens/flow';
 import TaskScreen from '../../screens/create-task';
 
 const Stack = createStackNavigator();
@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 function DailyTab() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={DailyScreen} />
+      <Stack.Screen name="Home" component={FlowScreen} />
       <Stack.Screen name="Create Task" component={TaskScreen} />
     </Stack.Navigator>
   );

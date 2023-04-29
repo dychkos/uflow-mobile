@@ -17,7 +17,7 @@ export const useAppHook = () => {
     }
   }
 
-  async function initDaily() {
+  async function loadTasks() {
     if (currentFlow) {
       await uploadTasks(currentFlow.id);
     }
@@ -25,6 +25,6 @@ export const useAppHook = () => {
 
   return {
     initApp,
-    initDaily
+    loadTasks
   };
 };
