@@ -10,11 +10,11 @@ export const useValidation = (rules, fields) => {
   const validate = () => {
     const newErrors = {};
 
-    for (const { key, rule, msg } in rules) {
+    rules.forEach(({ key, rule, msg }) => {
       if (!rule(fields[key])) {
         newErrors[key] = msg;
       }
-    }
+    });
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
