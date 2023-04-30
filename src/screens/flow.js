@@ -3,8 +3,8 @@ import BaseLayout from '../components/BaseLayout';
 import { useTasksStore } from '../store/useTasksStore';
 import { useAppHook } from '../hooks/useAppHook';
 import React, { useEffect } from 'react';
-import { LoadingIndicator } from '../components/LoadingIndicator';
-import { TasksList } from '../components/Task/TasksList';
+import { LoadingIndicator } from '../components/ui/LoadingIndicator';
+import { TasksList } from '../components/task/TasksList';
 
 export default () => {
   const [tasks, error, loading] = useTasksStore((state) => [state.tasks, state.error, state.loading]);

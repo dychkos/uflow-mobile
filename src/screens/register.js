@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button, Input, Layout, Text } from '@ui-kitten/components';
-import { LoadingIndicator } from '../components/LoadingIndicator';
+import { LoadingIndicator } from '../components/ui/LoadingIndicator';
 import { AuthService } from '../services/AuthService';
 import { useUser } from '../store/useUser';
 import { UserApi } from '../api/UserApi';
@@ -48,12 +48,7 @@ function RegistrationScreen({ navigation }) {
         onChangeText={(text) => setUsername(text)}
       />
 
-      <Input
-        placeholder="Email"
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-        style={styles.input}
-      />
+      <Input placeholder="Email" value={email} onChangeText={(text) => setEmail(text)} style={styles.input} />
 
       <Input
         placeholder="Password"

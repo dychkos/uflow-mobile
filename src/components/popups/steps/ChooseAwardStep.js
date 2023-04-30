@@ -6,7 +6,7 @@ import { CoinIcon, DecremIcon, IncremIcon } from '../../icons';
 import { useTasks } from '../../../store/useTasks';
 import { useTaskSteps } from '../../../hooks/useTaskSteps';
 import { useTaskAction } from '../../../hooks/useTaskAction';
-import { LoadingIndicator } from '../../LoadingIndicator';
+import { LoadingIndicator } from '../../ui/LoadingIndicator';
 
 export const ChooseAwardStep = ({ onNextClick }) => {
   const { task, setTask, handleSubmit } = useTaskSteps(onNextClick);

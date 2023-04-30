@@ -4,8 +4,8 @@ import { useTasksStore } from '../store/useTasksStore';
 import BaseLayout from '../components/BaseLayout';
 import { View } from 'react-native';
 import { useAppHook } from '../hooks/useAppHook';
-import { LoadingIndicator } from '../components/LoadingIndicator';
-import { TasksList } from '../components/Task/TasksList';
+import { LoadingIndicator } from '../components/ui/LoadingIndicator';
+import { TasksList } from '../components/task/TasksList';
 
 const DailyScreen = () => {
   const [tasks, loading, error] = useTasksStore((state) => [state.tasks, state.loading, state.error]);

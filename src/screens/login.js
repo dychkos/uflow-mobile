@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Button, Input, Layout, Text } from '@ui-kitten/components';
 import { AuthService } from '../services/AuthService';
-import { LoadingIndicator } from '../components/LoadingIndicator';
+import { LoadingIndicator } from '../components/ui/LoadingIndicator';
 import { useUser } from '../store/useUser';
 import { UserApi } from '../api/UserApi';
 import { useAppHook } from '../hooks/useAppHook';
@@ -38,12 +38,7 @@ function LoginScreen({ navigation }) {
       <Text style={styles.title} category="h2">
         Welcome back!
       </Text>
-      <Input
-        placeholder="Email"
-        style={styles.input}
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-      />
+      <Input placeholder="Email" style={styles.input} value={email} onChangeText={(text) => setEmail(text)} />
       <Input
         placeholder="Password"
         style={styles.input}
@@ -58,10 +53,7 @@ function LoginScreen({ navigation }) {
         disabled={loading}>
         Sign in
       </Button>
-      <Button
-        onPress={() => navigation.navigate('Registration')}
-        appearance={'ghost'}
-        style={styles.button}>
+      <Button onPress={() => navigation.navigate('Registration')} appearance={'ghost'} style={styles.button}>
         Create an account
       </Button>
       {error ? <Text status="danger">{error}</Text> : ''}
