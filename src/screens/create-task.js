@@ -76,9 +76,9 @@ export default () => {
   return (
     <Layout style={styles.container}>
       <ScrollView>
-        <Text category="h2">Create a new task</Text>
-
         <View style={styles.inputs}>
+          <Text category="h6">What to do?</Text>
+
           <InputField
             placeholder="What to do?"
             style={[styles.inputItem]}
@@ -104,13 +104,13 @@ export default () => {
         </View>
 
         <View style={styles.itemContainer}>
-          <Text category="h6">How often ?</Text>
+          <Text category="h6">How often?</Text>
 
           <ChooseAward selectedIndexes={task.days} onSelect={selectDay} error={errors.days} />
         </View>
 
         <View style={styles.itemContainer}>
-          <Text category="h6">Choose award</Text>
+          <Text category="h6">Choose award:</Text>
 
           <CoinIcon style={styles.coinIcon} fill="#000" />
           <View style={styles.coinContainer}>
@@ -152,8 +152,7 @@ const styles = StyleSheet.create({
 
   inputs: {
     display: 'flex',
-    width: '100%',
-    marginTop: 16
+    width: '100%'
   },
   inputItem: {
     marginVertical: 5
