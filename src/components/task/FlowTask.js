@@ -3,16 +3,15 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Award } from './Award';
 import { EditIcon, TrashIcon } from '../icons';
-// import { useApp } from '../../store/useApp';
-// import { useTasks } from '../../store/useTasks';
 import { Helper } from '../../app/services/Helper';
-// import { useTaskAction } from '../../hooks/useTaskAction';
+import { useTasksStore } from '../../store/useTasksStore';
 
-export const FlowTask = ({ item }) => {
+export const FlowTask = ({ item, flow }) => {
   // const setTaskToEdit = useTasks((state) => [state.setCurrent, state.removeTask]);
-  // const { remove, loading } = useTaskAction();
+  const [loading, remove] = useTasksStore((state) => [state.loading, state.remove]);
 
   const task = item.item;
+  console.log(flow);
 
   const title = `${task.action} ${task.how_many} ${task.unit}`;
   const days = Helper.formatTaskDays(task.days);
@@ -23,6 +22,9 @@ export const FlowTask = ({ item }) => {
   };
 
   const onTaskRemove = async () => {
+    if (flow.id) {
+      await remove(task, flow.id);
+    }
     // await remove(task);
   };
 
@@ -32,7 +34,7 @@ export const FlowTask = ({ item }) => {
       description={days.join(', ')}
       accessoryLeft={() => <Award reward={task.reward} />}
       accessoryRight={() => (
-        <TaskRightAccessory onEdit={onTaskEdit} onRemove={onTaskRemove} disabled={false} />
+        <TaskRightAccessory onEdit={onTaskEdit} onRemove={onTaskRemove} disabled={loading} />
       )}
     />
   );

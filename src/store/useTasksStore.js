@@ -7,7 +7,7 @@ export const useTasksStore = create((set, get) => {
     //
     tasks: [],
     error: null,
-    loading: false,
+    loading: true, //todo: think maybe do true by default
 
     upload: async function (flowId) {
       try {

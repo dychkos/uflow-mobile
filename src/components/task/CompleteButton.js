@@ -1,4 +1,4 @@
-import { Button, Icon } from '@ui-kitten/components';
+import { Button } from '@ui-kitten/components';
 import React from 'react';
 
 export const CompleteButton = ({ done, onComplete }) => (
