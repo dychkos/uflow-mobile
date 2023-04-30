@@ -3,7 +3,7 @@ import { Text } from '@ui-kitten/components';
 import { useTasksStore } from '../store/useTasksStore';
 import BaseLayout from '../components/BaseLayout';
 import { View } from 'react-native';
-import { useAppHook } from '../hooks/useAppHook';
+import { useAppHook } from '../app/hooks/useAppHook';
 import { LoadingIndicator } from '../components/ui/LoadingIndicator';
 import { TasksList } from '../components/task/TasksList';
 

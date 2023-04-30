@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Layout, Text } from '@ui-kitten/components';
+import { Layout, Text } from '@ui-kitten/components';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { CoinIcon, DecremIcon, IncremIcon } from '../components/icons';
@@ -9,8 +9,10 @@ import { LoadingButton } from '../components/ui/buttons/LoadingButton';
 import { InputField } from '../components/ui/InputField';
 import { ScrollView } from 'react-native';
 import { ChooseAward } from '../components/task/ChooseAward';
-import { Helper } from '../services/Helper';
+import { Helper } from '../app/services/Helper';
 import { useNavigation } from '@react-navigation/native';
+import { useValidation } from '../app/hooks/useValidation';
+import { createTaskRules } from '../app/validation';
 
 const defaultTask = {
   action: '',
@@ -24,7 +26,7 @@ export default () => {
   const navigation = useNavigation();
 
   const [task, setTask] = useState(defaultTask);
-  const [errors, setErrors] = useState({});
+  const { validate, clearError, errors } = useValidation(createTaskRules, task);
 
   const flow = useFlow((state) => state.currentFlow);
   const [createTask, loading, error] = useTasksStore((state) => [state.create, state.loading, state.error]);
@@ -49,10 +51,6 @@ export default () => {
     }
   };
 
-  const clearError = (field) => {
-    setErrors((state) => ({ ...state, [field]: null }));
-  };
-
   const allowDecrement = () => task.reward > 1;
   const allowIncrement = () => task.reward < 3;
 
@@ -68,35 +66,8 @@ export default () => {
     }
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!task.action) {
-      newErrors.action = 'Describe to do action.';
-    }
-
-    if (!task.how_many) {
-      newErrors.how_many = 'Input how much action need to do.';
-    }
-
-    if (task.how_many && !Helper.isValidInteger(task.how_many)) {
-      newErrors.how_many = 'Input should be a numeric';
-    }
-    console.log('jow', task.how_many);
-
-    if (!task.unit) {
-      newErrors.unit = 'Describe what thing should be done.';
-    }
-
-    if (!task.days.length) {
-      newErrors.days = 'Choose day to repeat the task.';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   const handleSubmit = async () => {
-    if (validateForm() && flow.id) {
+    if (validate() && flow.id) {
       await createTask(Helper.prepareTaskToDto(task), flow.id);
       navigation.navigate('Home');
     }

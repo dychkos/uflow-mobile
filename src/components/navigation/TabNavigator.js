@@ -1,8 +1,8 @@
 import { BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
 import DailyTab from './DailyTab';
+import FlowTab from './FlowTab';
 import ProfileScreen from '../../screens/profile';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import FlowTab from './FlowTab';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,13 +17,11 @@ const BottomTab = ({ navigation, state }) => (
 );
 
 const TabNavigator = () => (
-  <Tab.Navigator
-    tabBar={(props) => <BottomTab {...props} />}
-    screenOptions={{ headerShown: false }}>
-    <Tab.Screen name="Daily" component={DailyTab} />
-    <Tab.Screen name="Flow" component={FlowTab} />
+  <Tab.Navigator tabBar={(props) => <BottomTab {...props} />} screenOptions={{ headerShown: false }}>
+    <Tab.Screen name="Daily Tap" component={DailyTab} options={{ headerShown: false }} />
+    <Tab.Screen name="Flow Tap" component={FlowTab} options={{ headerShown: false }} />
 
-    <Tab.Screen name="Profile" component={ProfileScreen} />
+    <Tab.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
   </Tab.Navigator>
 );
 

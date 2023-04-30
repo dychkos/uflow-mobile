@@ -2,8 +2,8 @@ import React from 'react';
 import { Button, ButtonGroup } from '@ui-kitten/components';
 import { View } from 'react-native';
 import { StyleSheet } from 'react-native';
-import { useTaskSteps } from '../../../hooks/useTaskSteps';
-import { Helper } from '../../../services/Helper';
+import { useTaskSteps } from '../../../app/hooks/useTaskSteps';
+import { Helper } from '../../../app/services/Helper';
 
 export const HowOftenStep = ({ onNextClick }) => {
   const days = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
@@ -38,10 +38,7 @@ export const HowOftenStep = ({ onNextClick }) => {
       <View style={styles.form}>
         <ButtonGroup size={'small'} appearance="outline" status="info">
           {days.map((day) => (
-            <Button
-              key={day}
-              style={isIncluded(day) && styles.buttonCheck}
-              onPress={() => onSelect(day)}>
+            <Button key={day} style={isIncluded(day) && styles.buttonCheck} onPress={() => onSelect(day)}>
               {day}
             </Button>
           ))}

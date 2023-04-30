@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { useApp } from '../../store/useApp';
 import { InitialStep, HowOftenStep, ChooseAwardStep } from './steps';
 import { ModalStepLayout } from './layouts';
-import { useTaskAction } from '../../hooks/useTaskAction';
+import { useTaskAction } from '../../app/hooks/useTaskAction';
 
 const steps = {
   INITIAL: {

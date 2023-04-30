@@ -4,7 +4,7 @@ import { CompleteButton } from './CompleteButton';
 import { Award } from './Award';
 // import { useTasks } from '../../store/useTasks';
 // import { useUser } from '../../store/useUser';
-import { Helper } from '../../services/Helper';
+import { Helper } from '../../app/services/Helper';
 
 export const Task = ({ item }) => {
   // const toggleComplete = useTasks((state) => state.toggleTaskStatus);

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 // import { devtools } from 'zustand/middleware';
-import { TaskApi } from '../api/TaskApi';
+import { TaskApi } from '../app/api/TaskApi';
 
 export const useTasksStore = create((set, get) => {
   return {

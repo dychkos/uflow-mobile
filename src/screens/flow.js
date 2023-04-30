@@ -1,7 +1,7 @@
 import { Text } from '@ui-kitten/components';
 import BaseLayout from '../components/BaseLayout';
 import { useTasksStore } from '../store/useTasksStore';
-import { useAppHook } from '../hooks/useAppHook';
+import { useAppHook } from '../app/hooks/useAppHook';
 import React, { useEffect } from 'react';
 import { LoadingIndicator } from '../components/ui/LoadingIndicator';
 import { TasksList } from '../components/task/TasksList';

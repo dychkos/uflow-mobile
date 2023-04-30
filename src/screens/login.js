@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Button, Input, Layout, Text } from '@ui-kitten/components';
-import { AuthService } from '../services/AuthService';
+import { AuthService } from '../app/services/AuthService';
 import { LoadingIndicator } from '../components/ui/LoadingIndicator';
 import { useUser } from '../store/useUser';
-import { UserApi } from '../api/UserApi';
-import { useAppHook } from '../hooks/useAppHook';
+import { UserApi } from '../app/api/UserApi';
+import { useAppHook } from '../app/hooks/useAppHook';
 
 function LoginScreen({ navigation }) {
   const setAuth = useUser((state) => state.setAuth);

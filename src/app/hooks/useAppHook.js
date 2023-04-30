@@ -1,7 +1,7 @@
 import { UserApi } from '../api/UserApi';
-import { useUser } from '../store/useUser';
-import { useFlow } from '../store/useFlow';
-import { useTasksStore } from '../store/useTasksStore';
+import { useUser } from '../../store/useUser';
+import { useFlow } from '../../store/useFlow';
+import { useTasksStore } from '../../store/useTasksStore';
 
 export const useAppHook = () => {
   const setUser = useUser((state) => state.setUser);

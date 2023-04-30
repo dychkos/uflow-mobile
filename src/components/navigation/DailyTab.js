@@ -9,8 +9,8 @@ const Stack = createStackNavigator();
 function DailyTab() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={DailyScreen} />
-      <Stack.Screen name="Create Task" component={TaskScreen} />
+      <Stack.Screen name="Home" component={DailyScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Create Task" component={TaskScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }

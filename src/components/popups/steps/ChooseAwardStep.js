@@ -4,8 +4,8 @@ import { View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { CoinIcon, DecremIcon, IncremIcon } from '../../icons';
 import { useTasks } from '../../../store/useTasks';
-import { useTaskSteps } from '../../../hooks/useTaskSteps';
-import { useTaskAction } from '../../../hooks/useTaskAction';
+import { useTaskSteps } from '../../../app/hooks/useTaskSteps';
+import { useTaskAction } from '../../../app/hooks/useTaskAction';
 import { LoadingIndicator } from '../../ui/LoadingIndicator';
 
 export const ChooseAwardStep = ({ onNextClick }) => {

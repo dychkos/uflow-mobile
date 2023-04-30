@@ -1,7 +1,7 @@
 import { Button, Divider, Layout, Text } from '@ui-kitten/components';
 import { LoadingIndicator } from '../components/ui/LoadingIndicator';
 import React from 'react';
-import { AuthService } from '../services/AuthService';
+import { AuthService } from '../app/services/AuthService';
 import { useUser } from '../store/useUser';
 
 export default () => {

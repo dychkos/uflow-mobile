@@ -1,13 +1,13 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_BASE_URL } from '@env';
-import { useUser } from '../store/useUser';
+import { useUser } from '../../store/useUser';
 
 // const setAuth = useUser((state) => state.setAuth);
 
 const axiosInstance = axios.create({
   // baseURL: API_BASE_URL,
-  baseURL: 'https://b350-95-132-245-50.ngrok-free.app',
+  baseURL: 'https://4a50-95-132-245-50.ngrok-free.app',
   headers: {
     Authorization: `Bearer ${AsyncStorage.getItem('@jwt_token')}`
   }

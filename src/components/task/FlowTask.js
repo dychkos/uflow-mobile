@@ -5,7 +5,7 @@ import { Award } from './Award';
 import { EditIcon, TrashIcon } from '../icons';
 // import { useApp } from '../../store/useApp';
 // import { useTasks } from '../../store/useTasks';
-import { Helper } from '../../services/Helper';
+import { Helper } from '../../app/services/Helper';
 // import { useTaskAction } from '../../hooks/useTaskAction';
 
 export const FlowTask = ({ item }) => {

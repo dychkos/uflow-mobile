@@ -1,7 +1,7 @@
 import { Button, Input } from '@ui-kitten/components';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useTaskSteps } from '../../../hooks/useTaskSteps';
+import { useTaskSteps } from '../../../app/hooks/useTaskSteps';
 
 export const InitialStep = ({ onNextClick }) => {
   const { setTask, task, handleSubmit } = useTaskSteps(onNextClick);
