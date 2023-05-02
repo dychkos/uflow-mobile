@@ -5,9 +5,11 @@ import { Award } from './Award';
 import { EditIcon, TrashIcon } from '../icons';
 import { Helper } from '../../app/services/Helper';
 import { useTasksStore } from '../../store/useTasksStore';
+import { useNavigation } from '@react-navigation/native';
 
 export const FlowTask = ({ item, flow }) => {
-  // const setTaskToEdit = useTasks((state) => [state.setCurrent, state.removeTask]);
+  const navigation = useNavigation();
+
   const [loading, remove] = useTasksStore((state) => [state.loading, state.remove]);
 
   const task = item.item;
@@ -17,8 +19,7 @@ export const FlowTask = ({ item, flow }) => {
   const days = Helper.formatTaskDays(task.days);
 
   const onTaskEdit = () => {
-    // setTaskToEdit(task);
-    // toggleVisible();
+    navigation.navigate('Edit Task', { editableTask: task });
   };
 
   const onTaskRemove = async () => {
