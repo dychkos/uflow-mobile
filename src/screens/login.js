@@ -6,6 +6,9 @@ import { LoadingIndicator } from '../components/ui/LoadingIndicator';
 import { useUser } from '../store/useUser';
 import { UserApi } from '../app/api/UserApi';
 import { useAppHook } from '../app/hooks/useAppHook';
+import { InputField } from '../components/ui/InputField';
+import { useValidation } from '../app/hooks/useValidation';
+import { loginRules } from '../app/validation';
 
 function LoginScreen({ navigation }) {
   const setAuth = useUser((state) => state.setAuth);
@@ -17,7 +20,21 @@ function LoginScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const { validate, clearError, errors } = useValidation(loginRules, { password, email });
+
+  const onEmailChange = (val) => {
+    if ('email' in errors) clearError('email');
+    setEmail(val);
+  };
+
+  const onPasswordChange = (val) => {
+    if ('password' in errors) clearError('password');
+    setPassword(val);
+  };
+
   const handleLogin = async () => {
+    if (!validate()) return;
+
     setLoading(true);
     try {
       await AuthService.login({ email, password });
@@ -38,13 +55,20 @@ function LoginScreen({ navigation }) {
       <Text style={styles.title} category="h2">
         Welcome back!
       </Text>
-      <Input placeholder="Email" style={styles.input} value={email} onChangeText={(text) => setEmail(text)} />
-      <Input
+      <InputField
+        placeholder="Email"
+        style={[styles.input]}
+        value={email}
+        onChangeText={onEmailChange}
+        error={errors.email}
+      />
+      <InputField
         placeholder="Password"
-        style={styles.input}
+        style={[styles.input]}
         value={password}
         secureTextEntry
-        onChangeText={(text) => setPassword(text)}
+        onChangeText={onPasswordChange}
+        error={errors.password}
       />
       <Button
         onPress={handleLogin}
@@ -74,7 +98,8 @@ const styles = StyleSheet.create({
     marginBottom: 16
   },
   input: {
-    marginBottom: 8
+    marginBottom: 8,
+    width: '100%'
   },
   button: {
     marginBottom: 8,

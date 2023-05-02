@@ -7,7 +7,7 @@ import { useUser } from '../../store/useUser';
 
 const axiosInstance = axios.create({
   // baseURL: API_BASE_URL,
-  baseURL: 'https://4a50-95-132-245-50.ngrok-free.app',
+  baseURL: 'https://e4b7-2605-6440-4011-c000-00-717d.ngrok-free.app',
   headers: {
     Authorization: `Bearer ${AsyncStorage.getItem('@jwt_token')}`
   }

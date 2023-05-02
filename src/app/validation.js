@@ -27,3 +27,19 @@ export const createTaskRules = [
     msg: 'Choose day to repeat the task.'
   }
 ];
+
+export const loginRules = [
+  {
+    key: 'email',
+    rule: (value) =>
+      value.match(
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      ),
+    msg: 'Insert a valid email.'
+  },
+  {
+    key: 'password',
+    rule: (value) => Boolean(value) && value.length > 3, //todo: return to 7
+    msg: 'Provide more secure password.'
+  }
+];

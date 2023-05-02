@@ -32,7 +32,7 @@ export default () => {
   const [createTask, loading, error] = useTasksStore((state) => [state.create, state.loading, state.error]);
 
   const handleInputChange = (key, value) => {
-    clearError(key);
+    if (key in errors) clearError(key);
     let updatedValue = {};
     updatedValue = { [key]: value };
     setTask((task) => ({
