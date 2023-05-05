@@ -8,7 +8,7 @@ import ErrorMessage from '../components/ui/ErrorMessage';
 import { LoadingButton } from '../components/ui/buttons/LoadingButton';
 import { InputField } from '../components/ui/InputField';
 import { ScrollView } from 'react-native';
-import { ChooseAward } from '../components/task/ChooseAward';
+import { SelectDaysToRepeat } from '../components/task/SelectDaysToRepeat';
 import { Helper } from '../app/services/Helper';
 import { useNavigation } from '@react-navigation/native';
 import { useValidation } from '../app/hooks/useValidation';
@@ -100,7 +100,7 @@ export default ({ route }) => {
         <View style={styles.itemContainer}>
           <Text category="h6">How often?</Text>
 
-          <ChooseAward selectedIndexes={task.days} onSelect={selectDay} error={errors.days} />
+          <SelectDaysToRepeat selectedIndexes={task.days} onSelect={selectDay} error={errors.days} />
         </View>
 
         <View style={styles.itemContainer}>

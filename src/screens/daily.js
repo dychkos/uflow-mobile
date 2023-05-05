@@ -6,11 +6,13 @@ import { View } from 'react-native';
 import { useAppHook } from '../app/hooks/useAppHook';
 import { LoadingIndicator } from '../components/ui/LoadingIndicator';
 import { TasksList } from '../components/task/TasksList';
+import { Helper } from '../app/services/Helper';
 
 const DailyScreen = () => {
   const [tasks, loading, error] = useTasksStore((state) => [state.tasks, state.loading, state.error]);
 
   const app = useAppHook();
+  const filtered = Helper.filterTaskByCurrentDay(tasks);
 
   useEffect(() => {
     app.loadTasks();
@@ -28,7 +30,7 @@ const DailyScreen = () => {
             Необхідно зробити:
           </Text>
 
-          <TasksList tasks={tasks} refreshTasks={app.loadTasks} />
+          <TasksList tasks={filtered} refreshTasks={app.loadTasks} />
         </View>
       )}
     </BaseLayout>

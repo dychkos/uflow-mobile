@@ -1,17 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { Button, ButtonGroup, Text } from '@ui-kitten/components';
+import { DAYS_ARRAY } from '../../app/enums';
 
-const DAYS_ARRAY = [
-  { key: 1, value: 'Mo' },
-  { key: 2, value: 'Tu' },
-  { key: 3, value: 'We' },
-  { key: 4, value: 'Th' },
-  { key: 5, value: 'Fr' },
-  { key: 6, value: 'Sa' },
-  { key: 7, value: 'Su' }
-];
-
-export const ChooseAward = ({ onSelect, selectedIndexes, error = null }) => {
+export const SelectDaysToRepeat = ({ onSelect, selectedIndexes, error = null }) => {
   return (
     <>
       <ButtonGroup
