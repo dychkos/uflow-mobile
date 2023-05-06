@@ -35,10 +35,6 @@ export class Helper {
 
   static filterTaskByCurrentDay(tasks) {
     const currentDay = Helper.getCurrentDayIndex();
-    console.log(
-      currentDay,
-      tasks.filter((task) => task.days.includes(currentDay))
-    );
     return tasks.filter((task) => task.days.includes(currentDay));
   }
 }

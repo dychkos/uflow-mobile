@@ -5,16 +5,17 @@ import { globalStyles } from '../styles';
 import React from 'react';
 import { useUser } from '../store/useUser';
 import { useTasksStore } from '../store/useTasksStore';
+import { Helper } from '../app/services/Helper';
+import { useCallback } from 'react/index';
 
 export const HeaderComponent = ({ flowName, hideProgress }) => {
-  const tasksCount = useTasksStore((state) => state.tasks.length);
-  const [globalCoins, earnedCoins, doneTasks] = useUser((state) => [
-    state.globalCoins,
-    state.earnedCoins,
-    state.doneTasks
-  ]);
+  const tasks = useTasksStore((state) => state.tasks);
+  const user = useUser((state) => state.user);
+  const { doneTasks, globalCoins, earnedCoins } = user;
 
-  const calcDonePercentage = () => (doneTasks / tasksCount) * 100;
+  const filtered = Helper.filterTaskByCurrentDay(tasks);
+
+  const calcDonePercentage = useCallback(() => (doneTasks / filtered.length) * 100);
 
   return (
     <View style={styles.container}>

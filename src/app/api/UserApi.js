@@ -7,4 +7,11 @@ export class UserApi {
 
     return response.data;
   }
+
+  static async update(userDto) {
+    const endpoint = 'users/';
+    const response = await api.patch(endpoint, userDto);
+
+    return response.data;
+  }
 }
