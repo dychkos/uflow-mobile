@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export const AddButton = () => {
   const [visible, setVisible] = React.useState(false);
-  // const toggleTaskPopup = useApp((state) => state.toggleAddingTask);
+  const toggleFlowPopup = useApp((state) => state.toggleAddingFlow);
   const navigation = useNavigation();
 
   const renderToggleButton = () => (
@@ -24,13 +24,23 @@ export const AddButton = () => {
     navigation.navigate('Create Task');
   };
 
+  const openFlowPopup = () => {
+    hide();
+    toggleFlowPopup();
+  };
+
   return (
-    <Popover visible={visible} anchor={renderToggleButton} placement="top start" fullWidth={true} onBackdropPress={() => setVisible(false)}>
+    <Popover
+      visible={visible}
+      anchor={renderToggleButton}
+      placement="top start"
+      fullWidth={true}
+      onBackdropPress={() => setVisible(false)}>
       <Layout style={styles.content}>
         <Button style={styles.button} onPress={moveToCreatingTask} appearance="ghost" status="primary">
           Add task
         </Button>
-        <Button style={styles.button} appearance="ghost" status="primary">
+        <Button style={styles.button} onPress={openFlowPopup} appearance="ghost" status="primary">
           Add flow
         </Button>
       </Layout>

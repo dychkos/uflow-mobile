@@ -2,18 +2,26 @@ import { UserApi } from '../api/UserApi';
 import { useUser } from '../../store/useUser';
 import { useFlow } from '../../store/useFlow';
 import { useTasksStore } from '../../store/useTasksStore';
+import { useApp } from '../../store/useApp';
 
 export const useAppHook = () => {
+  const showAddingFlowPopup = useApp((state) => state.toggleAddingFlow);
+
   const setUser = useUser((state) => state.setUser);
 
   const [currentFlow, setCurrentFlow] = useFlow((state) => [state.currentFlow, state.setCurrentFlow]);
-  const uploadTasks = useTasksStore((state) => state.upload);
+  const [uploadTasks, cleanTasks] = useTasksStore((state) => [state.upload, state.clean]);
 
   async function initApp() {
+    cleanTasks();
     const user = await UserApi.getMe();
     setUser(user);
+    console.log('SUER', user);
     if (user.chosenFlow) {
       setCurrentFlow(user.chosenFlow);
+    } else {
+      setCurrentFlow(null);
+      showAddingFlowPopup();
     }
   }
 

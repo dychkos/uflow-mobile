@@ -48,10 +48,9 @@ export const useUser = create((set) => ({
   //   }));
   // },
 
-  setAuth: (isAuth) =>
-    set(() => ({
-      isAuth
-    })),
+  setAuth: (isAuth) => {
+    set({ isAuth });
+  },
 
   setUser: (user) =>
     set({

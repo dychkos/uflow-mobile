@@ -14,8 +14,8 @@ function LoginScreen({ navigation }) {
   const setAuth = useUser((state) => state.setAuth);
   const app = useAppHook();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('admin@admin.com');
+  const [password, setPassword] = useState('admin');
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -52,8 +52,11 @@ function LoginScreen({ navigation }) {
 
   return (
     <Layout style={styles.container}>
+      <Text category="h6" appearance="hint">
+        welcome to
+      </Text>
       <Text style={styles.title} category="h2">
-        Welcome back!
+        Uflow - tracker
       </Text>
       <InputField
         placeholder="Email"

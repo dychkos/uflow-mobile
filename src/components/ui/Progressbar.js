@@ -10,28 +10,28 @@ export const ProgressBar = ({ percentage }) => {
 };
 
 const Filler = ({ percentage }) => {
-  const animatedWidth = useRef(new Animated.Value(0)).current;
+  // const animatedWidth = useRef(new Animated.Value(0)).current;
 
-  useEffect(() => {
-    // Animate the width based on the percentage value
-    Animated.timing(animatedWidth, {
-      toValue: percentage,
-      duration: 500,
-      useNativeDriver: false
-    }).start();
-  }, [percentage]);
-
-  const animWidth = animatedWidth.interpolate({
-    inputRange: [0, 100],
-    outputRange: ['0%', '100%']
-  });
+  // useEffect(() => {
+  //   // Animate the width based on the percentage value
+  //   Animated.timing(animatedWidth, {
+  //     toValue: percentage,
+  //     duration: 500,
+  //     useNativeDriver: false
+  //   }).start();
+  // }, [percentage]);
+  //
+  // const animWidth = animatedWidth.interpolate({
+  //   inputRange: [0, 100],
+  //   outputRange: ['0%', '100%']
+  // });
 
   return (
-    <Animated.View
+    <View
       style={[
         styles.filler,
         {
-          width: animWidth
+          width: `${percentage}%`
         }
       ]}
     />

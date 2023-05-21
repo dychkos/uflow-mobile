@@ -12,6 +12,7 @@ export const useTasksStore = create((set, get) => {
     upload: async function (flowId) {
       try {
         set({ loading: true });
+        console.log({ flowId });
 
         const tasks = await TaskApi.getTasksByFlow({ flowId });
 
@@ -75,6 +76,13 @@ export const useTasksStore = create((set, get) => {
       } finally {
         set({ loading: false });
       }
+    },
+
+    clean: function () {
+      set({
+        tasks: [],
+        error: null
+      });
     }
   };
 });

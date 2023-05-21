@@ -6,3 +6,4 @@ export { DecremIcon } from './DecremIcon';
 export { IncremIcon } from './IncremIcon';
 export { TrashIcon } from './TrashIcon';
 export { EditIcon } from './EditIcon';
+export { StatsIcon } from './StatsIcon';

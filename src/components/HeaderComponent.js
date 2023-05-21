@@ -1,28 +1,44 @@
 import { StyleSheet, View } from 'react-native';
-import { Icon, Text } from '@ui-kitten/components';
+import { Button, Icon, Text } from '@ui-kitten/components';
 import { ProgressBar } from './ui/Progressbar';
 import { globalStyles } from '../styles';
 import React from 'react';
 import { useUser } from '../store/useUser';
 import { useTasksStore } from '../store/useTasksStore';
 import { Helper } from '../app/services/Helper';
-import { useCallback } from 'react/index';
+import { useCallback } from 'react';
+import { useFlow } from '../store/useFlow';
+import { ChangeFlipIcon } from './icons/ChangeFlipIcon';
+import { useApp } from '../store/useApp';
 
-export const HeaderComponent = ({ flowName, hideProgress }) => {
+export const HeaderComponent = ({ hideProgress }) => {
   const tasks = useTasksStore((state) => state.tasks);
   const user = useUser((state) => state.user);
+  const flow = useFlow((state) => state.currentFlow);
+  const openFlowPopup = useApp((state) => state.toggleChangingFlow);
   const { doneTasks, globalCoins, earnedCoins } = user;
 
   const filtered = Helper.filterTaskByCurrentDay(tasks);
 
-  const calcDonePercentage = useCallback(() => (doneTasks / filtered.length) * 100);
+  const calcDonePercentage = useCallback(
+    () => (doneTasks / filtered.length) * 100,
+    [doneTasks, filtered.length]
+  );
 
   return (
     <View style={styles.container}>
       <View style={styles.box} />
 
       <View style={[styles.box, styles.main]}>
-        <Text category="h4">{flowName}</Text>
+        <Button style={styles.flowContainer} onPress={openFlowPopup} appearance={'ghost'}>
+          {flow && (
+            <View style={styles.flow}>
+              <ChangeFlipIcon style={styles.flowIcon} />
+              <Text category="h6">{flow?.title}</Text>
+            </View>
+          )}
+        </Button>
+
         {!hideProgress && <ProgressBar percentage={calcDonePercentage()} />}
       </View>
 
@@ -45,7 +61,7 @@ export const HeaderComponent = ({ flowName, hideProgress }) => {
 
 export const styles = StyleSheet.create({
   container: {
-    paddingTop: 20,
+    paddingTop: 28,
     paddingBottom: 5,
     paddingRight: 2,
     paddingLeft: 2,
@@ -54,6 +70,21 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 80
+  },
+  flowContainer: {
+    width: 240,
+    paddingHorizontal: 6,
+    paddingVertical: 6
+  },
+  flowIcon: {
+    marginHorizontal: 'auto'
+  },
+  flow: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 4
   },
   box: {
     flex: 1
