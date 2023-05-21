@@ -22,15 +22,12 @@ export const HowOftenStep = ({ onNextClick }) => {
   const onSelect = (day) => {
     //'TH'
     day = dayToIndex(day);
-    console.log('dayToIndex', day);
     // 1
     if (!task.days.includes(day)) {
-      console.log('d', day);
       setTask({ ...task, days: [...task.days, day] });
     } else {
       setTask({ ...task, days: task.days.filter((item) => item !== day) });
     }
-    console.log(task);
   };
 
   return (

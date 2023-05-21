@@ -13,7 +13,6 @@ export const FlowTask = ({ item, flow }) => {
   const [loading, remove] = useTasksStore((state) => [state.loading, state.remove]);
 
   const task = item.item;
-  console.log(flow);
 
   const title = `${task.action} ${task.how_many} ${task.unit}`;
   const days = Helper.formatTaskDays(task.days);

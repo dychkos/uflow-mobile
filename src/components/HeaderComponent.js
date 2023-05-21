@@ -77,11 +77,12 @@ export const styles = StyleSheet.create({
     paddingVertical: 6
   },
   flowIcon: {
-    marginHorizontal: 'auto'
+    alignSelf: 'center',
+    paddingLeft: 20
+    // display: 'none'
   },
   flow: {
     width: '100%',
-    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     margin: 4

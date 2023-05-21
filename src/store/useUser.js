@@ -7,9 +7,9 @@ export const useUser = create((set) => ({
   loading: false,
   error: null,
 
-  doneTasks: 0,
-  globalCoins: 45,
-  earnedCoins: 0,
+  // doneTasks: 0,
+  // globalCoins: 45,
+  // earnedCoins: 0,
 
   user: null,
 
@@ -50,6 +50,19 @@ export const useUser = create((set) => ({
 
   setAuth: (isAuth) => {
     set({ isAuth });
+  },
+
+  fetchUser: async () => {
+    set({ loading: true });
+
+    try {
+      const user = await UserApi.getMe();
+      set({ user });
+    } catch (e) {
+      set({ error: e.message });
+    } finally {
+      set({ loading: false });
+    }
   },
 
   setUser: (user) =>

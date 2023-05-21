@@ -29,7 +29,6 @@ const ChangeFlowPopup = () => {
   }, [visible]);
 
   const handleSubmit = async () => {
-    // do something with flowName
     await updateFlow({ ...flowsList[selectedIndex], chosen: true });
     toggleVisible();
   };

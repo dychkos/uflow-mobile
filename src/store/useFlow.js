@@ -2,8 +2,10 @@ import { create } from 'zustand';
 import { UserApi } from '../app/api/UserApi';
 import { FlowApi } from '../app/api/FlowApi';
 import { useTasksStore } from './useTasksStore';
+import { useUser } from './useUser';
 
 const refreshTasks = useTasksStore.getState().upload;
+const refreshUser = useUser.getState().fetchUser;
 
 export const useFlow = create((set) => ({
   currentFlow: null,
@@ -42,13 +44,11 @@ export const useFlow = create((set) => ({
   updateFlow: async (flowDto) => {
     set({ loading: true });
     try {
-      console.log('tosend', flowDto);
-
       const flow = await FlowApi.update(flowDto);
-      console.log('from apu', flow);
       if (flow.chosen) {
         set({ currentFlow: flow });
         await refreshTasks(flow.id);
+        await refreshUser();
       }
       set((state) => ({
         list: state.list.map((flowItem) => (flowItem.id === flowDto.id ? flowDto : flowItem))
