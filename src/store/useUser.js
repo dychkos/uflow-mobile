@@ -58,8 +58,10 @@ export const useUser = create((set) => ({
     try {
       const user = await UserApi.getMe();
       set({ user });
+      return user;
     } catch (e) {
       set({ error: e.message });
+      return null;
     } finally {
       set({ loading: false });
     }

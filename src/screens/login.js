@@ -56,7 +56,7 @@ function LoginScreen({ navigation }) {
         welcome to
       </Text>
       <Text style={styles.title} category="h2">
-        Uflow - tracker
+        Uflow - habit tracker
       </Text>
       <InputField
         placeholder="Email"
